@@ -2,7 +2,8 @@ import Classifier
 import dataframe
 
 examples, attributes, pattern = dataframe.prepare()
-tree = Classifier.decision_tree_learning(examples, attributes, pattern)
+# Classifier.get_predictor(train_set, attributes, pattern, min_gain, max_tree_depth)
+predictor = Classifier.get_predictor(examples.iloc[1:1000], attributes, pattern, 0.005, 10)
 
-acertos = Classifier.predictor(tree, examples)
+acertos = predictor(examples.iloc[0:1000])
 print('acertos: ', acertos)
