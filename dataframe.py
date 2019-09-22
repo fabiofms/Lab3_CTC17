@@ -37,10 +37,13 @@ def prepare():
 
     df = pd.merge(ratings_df, movies_df, on='movie_id', how='inner')
     df = pd.merge(df, users_df, on='user_id', how='inner')
-    attributes = ['gender', 'age', 'occupation', 'action', 'adventure', 'animation', 'children',
+    attributes_array = ['gender', 'age', 'occupation', 'action', 'adventure', 'animation', 'children',
                   'comedy', 'crime', 'documentary', 'drama', 'fantasy', 'fi', 'film',
                   'horror', 'musical', 'mystery', 'noir', 'romance', 'sci', 'thriller',
                   'war', 'western', 'year', 'name_len']
+    attributes = {}
+    for a in attributes_array:
+        attributes[a] = df[a].unique()
 
     # attributes = ['gender', 'age', 'occupation', 'Gender', 'year', 'name_len']
 
