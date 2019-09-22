@@ -46,5 +46,5 @@ def prepare():
         attributes[a] = df[a].unique()
 
     # attributes = ['gender', 'age', 'occupation', 'Gender', 'year', 'name_len']
-
-    return df, attributes, 3
+    pattern = df['classification'].value_counts().index[0]
+    return df, attributes, pattern
