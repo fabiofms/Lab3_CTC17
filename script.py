@@ -47,9 +47,10 @@ print('kappa classificador a priori: ', Metrics.get_kappa(acc_two, n))
 print('')
 
 # Specific ratings
-print('ratings para árvore de decisão: ', print(predictor(Metrics.get_specific_rows())))
-print('ratings para classificador a priori: ', print(predictor_apriori.predict([1, 2, 356, 364, 480, 593, 837, 1644,
-                                                                                2167, 2364])))
+print('ratings para árvore de decisão: ')
+print(predictor(Metrics.get_specific_rows()))
+print('ratings para classificador a priori: ')
+print(predictor_apriori.predict([1, 2, 356, 364, 480, 593, 837, 1644, 2167, 2364]))
 print('')
 
 input()

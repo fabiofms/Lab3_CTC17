@@ -77,9 +77,6 @@ def get_specific_rows():
 
     movies_df = pd.read_csv('./data/movies.dat', sep='::', engine='python', header=None,
                             names=['movie_id', 'title', 'genres'])
-    movies = [1, 2, 356, 364, 480, 593, 837, 1644, 2167, 2364]
-    db = movies_df.loc[movies_df['movie_id'].loc[movies], :]
-    db['key'] = range(10)
 
     # pre-processing movies in order to adapt gender information
     count = CountVectorizer()
@@ -95,8 +92,13 @@ def get_specific_rows():
     # using length of movie's names to attributes
     movies_df['name_len'] = movies_df['title'].apply(change_name)
 
+    # filtering movies database
+    movies = [1, 2, 356, 364, 480, 593, 837, 1644, 2167, 2364]
+    db = movies_df.loc[movies_df['movie_id'].loc[movies], :]
+    db['key'] = range(10)
+
     # merging to users database
-    users_df = pd.DataFrame(data={'key': range(10),'gender': ['M']*10, 'age': [18]*10, 'occupation': [4]*10})
+    users_df = pd.DataFrame(data={'key': range(10), 'gender': ['M']*10, 'age': [18]*10, 'occupation': [4]*10})
     new_db = pd.merge(db, users_df, on = 'key')
 
     return new_db

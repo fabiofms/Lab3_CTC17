@@ -10,12 +10,13 @@ class ClassifierAPriori:
         for mov in movies:
             ratings = db.loc[db.index[db['movie_id'] == mov], 'classification']
             movie.append(mov)
-            mean.append(int(sum(ratings) / len(ratings)))
+            mean.append(int(round(sum(ratings) / len(ratings))))
         return mean, movie
 
     def predict(self, x):
         ans = []
-        x = x['movie_id']
+        if not isinstance(x, list):
+            x = x['movie_id']
         for elem in x:
             if elem in self.movies:
                 ans.append(self.classification[self.movies.index(elem)])
