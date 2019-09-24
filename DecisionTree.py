@@ -1,19 +1,17 @@
 import math
-import pandas as pd
-import numpy as np
 
 
 def get_predictor(examples_complete, attributes_complete, pattern_complete, min_gain=0, max_depth=1000000):
 
-    base = len(examples_complete['classification'].unique())  # number of classifications available, considering a
-    # representative train_set
+    # number of classifications available, considering a representative train_set
+    base = len(examples_complete['classification'].unique())
 
+    # function designed in order to learn and build the decision tree
     def decision_tree_learning(examples, attributes_dict, pattern):
-        # examples argument is a pandas data frame
-        # attributes is a dictionary which keys are columns labels and values are possible values for attribute
-        # pattern is a classification to use in certain situations
+        # examples a data frame, attributes is a dictionary which keys are columns labels and values are possible values
+        # for each attribute and pattern is a classification to use in certain situations
 
-        # nested classes
+        # ---------------------- nested classes ----------------------
         class Node:
             def __init__(self, type_argument, attribute):
                 if type_argument == 'leaf':
@@ -48,7 +46,7 @@ def get_predictor(examples_complete, attributes_complete, pattern_complete, min_
             def get_node(self, value):
                 return self.children[value]
 
-        # nested functions
+        # ---------------------- nested functions ----------------------
         def same_classification(df):
             return len(df['classification'].unique()) == 1
 
@@ -90,7 +88,7 @@ def get_predictor(examples_complete, attributes_complete, pattern_complete, min_
 
             return attribute_result, attribute_result_gain
 
-        # Algorithm
+        # ---------------------- algorithm ----------------------
         # print('Rodou algoritmo')
         # Stop conditions of recursion
         if examples.empty:
@@ -98,7 +96,7 @@ def get_predictor(examples_complete, attributes_complete, pattern_complete, min_
         elif same_classification(examples):
             # print('len of examples: ', len(examples))
             return Node('leaf', pop_classification(examples))
-        elif len(attributes_dict.keys()) <= max([len(attributes_complete.keys()) - max_depth, 0]):  # threshold level for depth
+        elif len(attributes_dict.keys()) <= max([len(attributes_complete.keys()) - max_depth, 0]):  # depth maximum
             return Node('leaf', majority_value(examples))
         else:
             # best is a label
