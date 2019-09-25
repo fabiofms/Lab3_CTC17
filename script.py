@@ -4,6 +4,10 @@ import Dataframe
 import Metrics
 from sklearn.model_selection import train_test_split
 
+# Initial message
+print('Iniciando execução do script ...')
+print('Isso pode demorar... (~30min)')
+
 # Preparing database and splitting the dataset in training and test sets
 examples, attributes, pattern = Dataframe.prepare()
 X = examples
